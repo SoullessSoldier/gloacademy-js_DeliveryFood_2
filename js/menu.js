@@ -3,6 +3,8 @@
 let restaurant = '';
 const parentElement = document.querySelector('.cards-menu');
 
+const cartArray = [];
+
 const renderRestaurantTitle = (restaurant) => {
     const blockRestaurantTitle = document.querySelector('.restaurant-title'),
         blockRestaurantRating = document.querySelector('.rating'),
@@ -16,6 +18,10 @@ const renderRestaurantTitle = (restaurant) => {
 
 const addToCart = (cartItem) => {
     console.log(cartItem);
+    cartArray.push(cartItem);
+
+    localStorage.setItem('cart', JSON.stringify(cartArray))
+
 };
 
 const renderItems = (data) => {    
