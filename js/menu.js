@@ -3,7 +3,7 @@
 let restaurant = '';
 const parentElement = document.querySelector('.cards-menu');
 
-const cartArray = [];
+const cartArray = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
 
 const renderRestaurantTitle = (restaurant) => {
     const blockRestaurantTitle = document.querySelector('.restaurant-title'),
@@ -17,8 +17,17 @@ const renderRestaurantTitle = (restaurant) => {
 };
 
 const addToCart = (cartItem) => {
-    console.log(cartItem);
-    cartArray.push(cartItem);
+    if (cartArray.some((item) => item.id === cartItem.id)) {
+        cartArray.map((item) => {
+            if (item.id === cartItem.id) {
+                item.count++;
+            }
+            return item;
+        })
+    } else{
+        cartArray.push(cartItem);
+    }
+    
 
     localStorage.setItem('cart', JSON.stringify(cartArray))
 
@@ -57,9 +66,9 @@ const renderItems = (data) => {
         <!-- /.card -->
         `;
         
-        const buttonCardText = card.querySelector('.button-card-text');
+        const buttonCardText = card.querySelector('.button-add-cart');
         buttonCardText.addEventListener('click', () => {
-            addToCart({name, price, count: 1});
+            addToCart({name, price, id, count: 1});
         });
 
         parentElement.append(card);
