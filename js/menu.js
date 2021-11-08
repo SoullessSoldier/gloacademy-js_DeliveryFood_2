@@ -14,12 +14,18 @@ const renderRestaurantTitle = (restaurant) => {
     blockRestaurantCategory.textContent = restaurant.kitchen;
 };
 
+const addToCart = (cartItem) => {
+    console.log(cartItem);
+};
+
 const renderItems = (data) => {    
     renderRestaurantTitle(restaurant);
     parentElement.textContent = '';
     for (let {id, image, name, description, price} of data){
-                
-        const card = `
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.dataset.id = id;        
+        card.innerHTML = `
         <div class="card" data-id="${id}">
             <img src="${image}" alt="${name}" class="card-image" />
             <div class="card-text">
@@ -44,9 +50,15 @@ const renderItems = (data) => {
         </div>
         <!-- /.card -->
         `;
-        parentElement.insertAdjacentHTML('beforeend', card);
+        
+        const buttonCardText = card.querySelector('.button-card-text');
+        buttonCardText.addEventListener('click', () => {
+            addToCart({name, price, count: 1});
+        });
+
+        parentElement.append(card);
     }
-    //console.log(data);
+    
 }
 
 if(localStorage.getItem('restaurant')){

@@ -7,7 +7,8 @@ const buttonAuth = document.querySelector('.button-auth'),
     inputLogin = document.getElementById('login'),
     inputPassword = document.getElementById('password'),
     userName = document.querySelector('.user-name'),
-    buttonOut = document.querySelector('.button-out');
+    buttonOut = document.querySelector('.button-out'),
+    buttonCart = document.querySelector('.button-cart');
     
 
 
@@ -17,6 +18,7 @@ const login = (user) => {
     buttonOut.style.display = 'block';
     userName.textContent = user instanceof FormData ? user.get('login') : user.login;
     userName.style.display = 'block';
+    buttonCart.style.display = 'flex'; 
 };
 
 const logout = () => {
@@ -24,6 +26,7 @@ const logout = () => {
     userName.style.display = 'none';
     buttonOut.style.display = 'none';
     buttonAuth.style.display = 'block';
+    buttonCart.style.display = 'none'; 
     localStorage.removeItem('user');
 };
     
